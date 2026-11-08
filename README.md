@@ -23,4 +23,6 @@ Demon skriver ut `A`, `B`, `C` på varsin rad följt av `Storlek: 3`. Öppna map
 2. Öppna [de befintliga JUnit-testerna](src/test/java/se/kth/prep/structures/CustomArrayListTest.java). Skapa grenen `test/array-list-edge-cases` och skriv ett test som lägger till ett element i en lista med startkapacitet 0. Kontrollera att elementet kan hämtas och att storleken är 1.
 3. Kör `mvn test`, committa med `test: cover append from zero capacity` och öppna en pull request. Beskriv vilket gränsfall testet täcker.
 
-Fortsätt med [läsordning och projektplan](docs/studieplan.md). Där finns också en kodmall och acceptanskriterier för `CustomLinkedList<T>`.
+Öppna [issue #2](https://github.com/leoforsell/kth-data-structures-oop/issues/2) för första arbetspasset. Fortsätt sedan med [studieplanen](docs/studieplan.md), där varje uppgift har läsning, kodmall och en länk till sitt issue.
+
+`CustomArrayList` är den fungerande referensen. Metoder markerade med `TODO` i övriga mallar kastar `UnsupportedOperationException` tills du implementerar dem. Baslinjen `mvn clean test` kör testerna för arraylistan. Lägg till nya tester på din arbetsgren när du börjar med respektive mall.
