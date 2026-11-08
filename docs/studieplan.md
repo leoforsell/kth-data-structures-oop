@@ -1,44 +1,23 @@
 # Läsordning och projektplan
 
-| Moment | Läs | Använd det i projektet |
+Ta ett issue i taget. Varje rad har gratis läsning som du kan använda direkt i koden. Börja gärna med ett eget exempel på papper innan du jämför med bokens exempel.
+
+| Uppgift | Gratis läsning | Startpunkt i koden |
 | --- | --- | --- |
-| 1. Gränssnitt och generiska typer | [Dev.java om gränssnitt](https://dev.java/learn/interfaces/) och [generiska typer](https://dev.java/learn/generics/) | Förklara skillnaden mellan typen `CustomList<String>` och objektet `new CustomArrayList<>()` i demon. |
-| 2. Dynamisk array | [Open Data Structures, kapitel 2](https://opendatastructures.org/ods-java/2_Array_Based_Lists.html), särskilt 2.1 | Spåra `size` och kapacitet när en lista växer. Jämför kostnaden för `get(i)`, insättning i mitten och `add(element)` över många anrop. |
-| 3. Enhetstestning | [JUnit 5 User Guide](https://docs.junit.org/5.10.2/user-guide/), avsnitten Writing Tests och Assertions | Skriv tester som kontrollerar ordning, gränsindex och undantag. Kör ett enskilt test med `mvn -Dtest=CustomArrayListTest test`. |
-| 4. Enkellänkad lista | [Open Data Structures, kapitel 3](https://opendatastructures.org/ods-java/3_Linked_Lists.html), särskilt 3.1 | Rita noderna före och efter en insättning eller borttagning. Bygg nästa implementation med mallen nedan. |
+| [#2 Kom igång med arraylistan](https://github.com/leoforsell/kth-data-structures-oop/issues/2) | [Dev.java om gränssnitt](https://dev.java/learn/interfaces/) och [generiska typer](https://dev.java/learn/generics/). [Open Data Structures §2.1](https://opendatastructures.org/ods-java/2_Array_Based_Lists.html) om dynamiska arrayer och [JUnit om assertions](https://docs.junit.org/5.10.2/user-guide/#writing-tests-assertions). | [CustomArrayListTest](../src/test/java/se/kth/prep/structures/CustomArrayListTest.java) |
+| [#3 Enkellänkad lista](https://github.com/leoforsell/kth-data-structures-oop/issues/3) | [Open Data Structures §3.1](https://opendatastructures.org/ods-java/3_Linked_Lists.html) om noder och länkar. | [CustomLinkedList](../src/main/java/se/kth/prep/structures/CustomLinkedList.java) och [CustomList](../src/main/java/se/kth/prep/structures/CustomList.java) |
+| [#4 Stack och kö](https://github.com/leoforsell/kth-data-structures-oop/issues/4) | [Open Data Structures §3.1](https://opendatastructures.org/ods-java/3_Linked_Lists.html) om LIFO och FIFO. | [ListStack](../src/main/java/se/kth/prep/structures/ListStack.java) och [ListQueue](../src/main/java/se/kth/prep/structures/ListQueue.java) |
+| [#5 Linjär och binär sökning](https://github.com/leoforsell/kth-data-structures-oop/issues/5) | [Princeton Algorithms, Basic Programming Model](https://algs4.cs.princeton.edu/11model/), avsnittet Binary Search. [Open Data Structures §1.4](https://opendatastructures.org/ods-java/1_Introduction.html) om analys. | [SearchAlgorithms](../src/main/java/se/kth/prep/structures/SearchAlgorithms.java) |
+| [#6 Insättningssortering och mergesort](https://github.com/leoforsell/kth-data-structures-oop/issues/6) | [Princeton om insättningssortering](https://algs4.cs.princeton.edu/21elementary/) och [Open Data Structures §11.1](https://opendatastructures.org/ods-java/11_Sorting_Algorithms.html) om mergesort. | [SortAlgorithms](../src/main/java/se/kth/prep/structures/SortAlgorithms.java) |
 
-## Nästa delprojekt – en enkellänkad lista
+## Börja med den länkade listan efter första passet
 
-Skapa grenen `feat/custom-linked-list`. Lägg `CustomLinkedList.java` bredvid `CustomArrayList.java`. Kopiera nodmallen som utgångspunkt och lägg till `implements CustomList<T>` när listan uppfyller hela gränssnittet.
+1. Rita en tom lista och en lista med två noder. Markera `head`, `tail` och `size` före och efter ett anrop till `add(T)`. Skriv ett test som lägger in två element och läser tillbaka dem i ordning.
+2. Lägg till indexerad insättning, ersättning och borttagning. Insättning accepterar index `size()`. Hämtning, ersättning och borttagning kräver ett befintligt index. `set` och `remove` returnerar det tidigare värdet. Kontrollera att `tail` pekar rätt efter borttagning av sista noden.
+3. Fyll i sökning och iteration. Matcha arraylistans beteende för `null`, dubbletter och utebliven träff. Iterera direkt via nodernas länkar. Byt sedan till `CustomLinkedList` i demon på din arbetsgren och kontrollera att utskriften är densamma.
 
-```java
-package se.kth.prep.structures;
+Kör ett enskilt test med exempelvis `mvn -Dtest=CustomArrayListTest test`. Kör hela sviten med `mvn clean test` innan du öppnar din PR. Lägg in `Closes #N` i beskrivningen när ändringen uppfyller uppgiftens kriterier. N är uppgiftens nummer.
 
-public class CustomLinkedList<T> {
-    private static final class Node<T> {
-        private final T value;
-        private Node<T> next;
+## Vidare läsning
 
-        private Node(T value) {
-            this.value = value;
-        }
-    }
-
-    private Node<T> head;
-    private int size;
-
-    // TODO: Börja med size(), add(T) och get(int).
-}
-```
-
-Gör nodens `value` ändringsbart när du kommer till `set` om du väljer att uppdatera värdet i den befintliga noden.
-
-1. Skriv `CustomLinkedListTest` med ett test för en tom lista och ett för att lägga till två värden och hämta dem i ordning. Implementera `size()`, `add(T)` och `get(int)`. Kontrollera också att `get(-1)` och `get(size())` kastar `IndexOutOfBoundsException`.
-2. Implementera indexerad insättning, `set` och borttagning. Testa början, mitten och slutet, inklusive borttagning av enda elementet. Insättning accepterar index `size()`. Hämtning, ersättning och borttagning kräver ett befintligt index. `set` och `remove` returnerar det tidigare värdet.
-3. Fyll i resten av gränssnittet. Matcha arraylistans beteende för `null`, dubbletter och sökning efter ett värde som saknas. Testa att iteration följer listordningen och att `next()` kastar `NoSuchElementException` när iteratorn är slut.
-4. Byt implementation i demon på din gren. Verifiera samma utskrift, kör `mvn clean test` och beskriv i din PR hur arraylistan och den länkade listan skiljer sig för `get(i)` och insättning längst fram. Ange om din lista sparar en referens till sista noden när du analyserar insättning längst bak.
-
-## När båda listorna fungerar
-
-- Bygg en stack och en kö med små gränssnitt. Testa LIFO respektive FIFO och dokumentera hur en tom struktur hanteras. Jämför listimplementationerna som intern lagring.
-- Öva därefter på linjär och binär sökning. Testa tom indata, träff först och sist samt utebliven träff. Ange sorterad indata som förvillkor för binär sökning och jämför antal jämförelser.
+När de fem uppgifterna är klara kan du läsa [kapitel 5 om hashtabeller](https://opendatastructures.org/ods-java/5_Hash_Tables.html) och [kapitel 6 om binära träd](https://opendatastructures.org/ods-java/6_Binary_Trees.html) i *Open Data Structures*. Koppla tillbaka till kursmålen i [ID1021](https://www.kth.se/student/kurser/kurs/ID1021) och till designvalen kring gränssnitt och komposition i [IV1350](https://www.kth.se/student/kurser/kurs/IV1350).
