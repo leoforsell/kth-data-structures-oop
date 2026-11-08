@@ -101,4 +101,13 @@ class CustomArrayListTest {
 
         assertEquals("Ett Två Tre ", sb.toString());
     }
+
+    @Test
+    @DisplayName("Ska kunna lägga till första elementet när startkapaciteten är 0")
+    void testAddFromZeroCapacity(){
+        CustomArrayList<String> emptyList = new CustomArrayList<>(0);
+        emptyList.add("A");
+        assertEquals(1, emptyList.size());
+        assertEquals("A",emptyList.get(0));
+    }
 }
