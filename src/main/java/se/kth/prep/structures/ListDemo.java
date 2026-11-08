@@ -9,7 +9,7 @@ public final class ListDemo {
         list.add("A");
         list.add("C");
         list.add(1, "B");
-
+        list.add("D");
         for (String element : list) {
             System.out.println(element);
         }
